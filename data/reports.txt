@@ -1,0 +1,3 @@
+Title: Daily Report 2025 -05-03 | Type: DAILY | Bookings: 50 | Revenue: Rs.75000.0 | Date: 2026-05-14 18:31:57
+Title: Daily Report 2026-05-04 | Type: DAILY | Bookings: 45 | Revenue: Rs.65000.0 | Date: 2026-05-14 18:38:14
+Title: Daily Report 2026-05-05 | Type: DAILY | Bookings: 55 | Revenue: Rs.90000.0 | Date: 2026-05-14 18:59:42

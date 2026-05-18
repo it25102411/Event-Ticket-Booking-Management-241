@@ -17,3 +17,4 @@ target/
 
 # Project Data (Optional: ignore your local data files if they contain private info)
 # data/*.txt
+pom.xml
