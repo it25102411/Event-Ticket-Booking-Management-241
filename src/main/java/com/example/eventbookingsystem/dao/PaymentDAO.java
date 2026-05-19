@@ -70,7 +70,7 @@ public class PaymentDAO {
             System.err.println("[PaymentDAO] Error fetching all payments: " + e.getMessage());
         }
 
-        return payments;  // Returns empty list if error (never null)
+        return payments;  // Returns empty list if error
     }
 
     public Payment getPaymentById(int paymentId) {
