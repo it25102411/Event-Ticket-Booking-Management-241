@@ -9,35 +9,8 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * ============================================================
- *  PaymentDAO.java  –  Data Access Object
- *  Place this in: src/main/java/com/eventbooking/dao/
- *
- *  DAO = Data Access Object Pattern
- *  This class handles ALL database operations for Payment.
- *  Servlets → Service → DAO → Database
- *
- *  CRUD Operations:
- *  ✅ CREATE  – Insert a new payment record
- *  ✅ READ    – Fetch one or all payment records
- *  ✅ UPDATE  – Change payment status and notes
- *  ✅ DELETE  – Remove a payment record
- * ============================================================
- */
 public class PaymentDAO {
 
-    // ════════════════════════════════════════════════════════════════════
-    //  ✅ CREATE – Insert a new payment into the database
-    // ════════════════════════════════════════════════════════════════════
-
-    /**
-     * Saves a Payment object (CardPayment or CashPayment) to the database.
-     * Uses instanceof to determine which subclass it is and sets card fields.
-     *
-     * @param payment  The Payment object to save (can be CardPayment or CashPayment)
-     * @return true if successfully inserted, false if an error occurred
-     */
     public boolean createPayment(Payment payment) {
 
         String sql = "INSERT INTO payments " +
@@ -78,15 +51,6 @@ public class PaymentDAO {
         }
     }
 
-    // ════════════════════════════════════════════════════════════════════
-    //  ✅ READ – Get ALL payments from database
-    // ════════════════════════════════════════════════════════════════════
-
-    /**
-     * Fetches all payment records from the database, newest first.
-     *
-     * @return List of Payment objects (each is either CardPayment or CashPayment)
-     */
     public List<Payment> getAllPayments() {
 
         List<Payment> payments = new ArrayList<>();
@@ -109,16 +73,6 @@ public class PaymentDAO {
         return payments;  // Returns empty list if error (never null)
     }
 
-    // ════════════════════════════════════════════════════════════════════
-    //  ✅ READ – Get ONE payment by its ID
-    // ════════════════════════════════════════════════════════════════════
-
-    /**
-     * Fetches a single payment record by payment_id.
-     *
-     * @param paymentId  The ID of the payment to look up
-     * @return Payment object, or null if not found
-     */
     public Payment getPaymentById(int paymentId) {
 
         String sql = "SELECT * FROM payments WHERE payment_id = ?";
@@ -140,18 +94,6 @@ public class PaymentDAO {
         return null;  // Not found
     }
 
-    // ════════════════════════════════════════════════════════════════════
-    //  ✅ UPDATE – Change a payment's status and notes
-    // ════════════════════════════════════════════════════════════════════
-
-    /**
-     * Updates the status and notes of an existing payment.
-     *
-     * @param paymentId  ID of the payment to update
-     * @param newStatus  New status: "PENDING", "COMPLETED", "REFUNDED", or "FAILED"
-     * @param notes      Reason for the status change
-     * @return true if successfully updated
-     */
     public boolean updatePaymentStatus(int paymentId, String newStatus, String notes) {
 
         String sql = "UPDATE payments SET status = ?, notes = ? WHERE payment_id = ?";
@@ -173,11 +115,6 @@ public class PaymentDAO {
 
     //  DELETE – Remove a payment record from the database
 
-    /**
-     Permanently deletes a payment record from the database.
-     @param paymentId  ID of the payment to delete
-     @return true if successfully deleted
-     */
     public boolean deletePayment(int paymentId) {
 
         String sql = "DELETE FROM payments WHERE payment_id = ?";
@@ -194,20 +131,13 @@ public class PaymentDAO {
         }
     }
 
-    // Convert a database row into a Payment object
-
-    /**
-     * Maps one row from the ResultSet into a Payment object.
-     * Creates the correct subclass (CardPayment or CashPayment)
-     * based on the payment_method column value.
-     */
     private Payment mapResultSetToPayment(ResultSet rs) throws SQLException {
 
         String method = rs.getString("payment_method");
         Payment payment;
 
         if ("CARD".equals(method)) {
-            // Create a CardPayment and fill card-specific fields
+            // for Create a CardPayment and fill card specific fields
             CardPayment cp = new CardPayment();
             cp.setCardNumber(rs.getString("card_number"));
             cp.setCardHolder(rs.getString("card_holder"));
